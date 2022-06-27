@@ -74,13 +74,22 @@ These are the global settings for the Security API.
 title: SecurityCenter
 description: API spec for Microsoft.Security (Azure Security Center) resource provider
 openapi-type: arm
-tag: package-composite-v3
+tag: package-preview-2022-07
 ```
 
 ### Composite packages
 
 The following packages may be composed from multiple api-versions.
 
+
+### Tag: package-preview-2022-07
+
+These settings apply only when `--tag=package-preview-2022-07` is specified on the command line.
+
+```yaml $(tag) == 'package-preview-2022-07'
+input-file:
+  - Microsoft.Security/preview/2022-07-01-preview/securityConnectors.json
+```
 ### Tag: package-2022-05
 
 These settings apply only when `--tag=package-2022-05` is specified on the command line.
@@ -94,11 +103,12 @@ input-file:
 
 These settings apply only when `--tag=package-preview-2022-05-only` is specified on the command line.
 
-```yaml $(tag) == 'package-preview-2022-05'
+``` yaml $(tag) == 'package-preview-2022-05'
 input-file:
   - Microsoft.Security/preview/2022-05-01-preview/securityConnectors.json
 ```
-```
+
+``` 
 ### Tag: package-2021-11
 
 These settings apply only when `--tag=package-2021-11` is specified on the command line.
@@ -585,15 +595,20 @@ override-info:
 ```
 
 ### Tag: package-preview-2022-01
+
 These settings apply only when `--tag=package-2022-01-preview-only` is specified on the command line.
-```yaml $(tag) == 'package-2022-01-preview-only'
+
+``` yaml $(tag) == 'package-2022-01-preview-only'
 input-file:
   - Microsoft.Security/preview/2022-01-01-preview/governanceRules.json
   - Microsoft.Security/preview/2022-01-01-preview/governanceAssignments.json  
 ```
+
 # Needed when there is more than one input file
+
 override-info:
 title: SecurityCenter
+
 ``` 
 
 ---
