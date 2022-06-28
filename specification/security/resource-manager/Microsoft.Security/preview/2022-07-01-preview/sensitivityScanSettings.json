@@ -1,0 +1,168 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Security Center",
+    "description": "API spec for Microsoft.Security (Azure Security Center) resource provider",
+    "version": "2017-08-01-preview"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "azure_auth": [
+        "user_impersonation"
+      ]
+    }
+  ],
+  "securityDefinitions": {
+    "azure_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "flow": "implicit",
+      "description": "Azure Active Directory OAuth2 Flow",
+      "scopes": {
+        "user_impersonation": "impersonate your user account"
+      }
+    }
+  },
+  "paths": {
+    "/{resourceId}/providers/Microsoft.Security/sensitivityScanSettings/{settingName}": {
+      "get": {
+        "x-ms-examples": {
+          "Gets the anti malware settings for the specified resource.": {
+            "$ref": "./examples/SensitivityScan/GetSensitivityScanSettings_example.json"
+          }
+        },
+        "tags": [
+          "SensitivityScan",
+          "MDC-IP"
+        ],
+        "description": "Gets the sensitivity scan settings for the specified resource.",
+        "operationId": "SensitivityScan_Get",
+        "parameters": [
+          {
+            "$ref": "../../../common/v1/types.json#/parameters/ApiVersion"
+          },
+          {
+            "$ref": "../../../common/v1/types.json#/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/parameters/SensitivityScanSettingsName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful request to get sensitivity scan settings.",
+            "schema": {
+              "$ref": "#/definitions/SensitivityScanSettings"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "../../../common/v1/types.json#/definitions/CloudError"
+            }
+          }
+        }
+      },
+      "put": {
+        "x-ms-examples": {
+          "Gets the anti malware settings for the specified resource.": {
+            "$ref": "./examples/SensitivityScan/PutSensitivityScanSettings_example.json"
+          }
+        },
+        "tags": [
+          "SensitivityScan",
+          "MDC-IP"
+        ],
+        "description": "Creates or updates the sensitivity scan settings on a specified resource.",
+        "operationId": "SensitivityScan_Put",
+        "parameters": [
+          {
+            "$ref": "../../../common/v1/types.json#/parameters/ApiVersion"
+          },
+          {
+            "$ref": "../../../common/v1/types.json#/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/parameters/SensitivityScanSettingsName"
+          },
+          {
+            "$ref": "#/parameters/SensitivityScanSettings"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful request to put sensitivity scan settings.",
+            "schema": {
+              "$ref": "#/definitions/SensitivityScanSettings"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "../../../common/v1/types.json#/definitions/CloudError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SensitivityScanProperties": {
+      "properties": {
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether Sensitivity Scan is enabled."
+        }
+      },
+      "description": "The Sensitivity Scan properties."
+    },
+    "SensitivityScanSettings": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "../../../common/v1/types.json#/definitions/Resource"
+        }
+      ],
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/SensitivityScanProperties"
+        }
+      },
+      "description": "The Sensitivity Scan resource."
+    }
+  },
+  "parameters": {
+    "SensitivityScanSettingsName": {
+      "name": "settingName",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "enum": [
+        "current"
+      ],
+      "description": "Sensitivity scan setting name.",
+      "x-ms-parameter-location": "method"
+    },
+    "SensitivityScanSettings": {
+      "name": "SensitivityScanSettings",
+      "in": "body",
+      "required": true,
+      "description": "Sensitivity scan settings",
+      "schema": {
+        "$ref": "#/definitions/SensitivityScanSettings"
+      },
+      "x-ms-parameter-location": "method"
+    }
+  }
+}
